@@ -14,70 +14,88 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       String  @id @default(cuid())
   name     String
   username String @unique
   email    String @unique
   password String
   role     String?
   avatar   String?
-  session     Session[]
+  session  Session[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 model Session {
-  id           Int      @id @default(autoincrement())
-  token        String   @unique
-  user         User     @relation(fields: [userId], references: [id])
-  userId       Int
-  createdAt    DateTime @default(now())
-  expiresAt    DateTime
+  id        String   @id @default(cuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }
 
 model AppKey {
-  id           Int      @id @default(autoincrement())
-  name         String
-  key          String   @unique
-  is_active    Boolean 
-  expireAt     DateTime
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  key       String   @unique
+  is_active Boolean 
+  expireAt  DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
 model Skill {
-  id           Int    @id @default(autoincrement())
-  name         String @unique
-  url          String?
-  icon         String?
-  color        String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String   @unique
+  url       String?
+  icon      String?
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Experience {
-  id           Int      @id @default(autoincrement())
-  company      String
-  logo         String?
-  startDate    DateTime
-  endDate      DateTime?
-  desc         String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(cuid())
+  company   String
+  logo      String?
+  startDate DateTime
+  endDate   DateTime?
+  desc      String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Project {
-  id           Int      @id @default(autoincrement())
-  name         String
-  image        String
-  desc         String
-  tech         String[]
-  url          String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String[]
+  image     String
+  desc      String[]
+  tech      String[]
+  url       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Achievement {
-  id           Int      @id @default(autoincrement())
-  title        String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(cuid())
+  title     String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+enum Status {
+  waiting
+  proccess
+  completed
+}
+model Order {
+  id String @id @default(cuid())
+  from String 
+  name_project String 
+  category String
+  deadline DateTime
+  status Status @default(waiting)
+  price BigInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

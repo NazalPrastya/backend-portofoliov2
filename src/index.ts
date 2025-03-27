@@ -7,7 +7,10 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT;
 
+app.use(express.json());
+
 // Routes
+// app.use("/api", ProjectController);
 app.use("/api", ProjectController);
 
 app.get("/", (req: Request, res: Response) => {
