@@ -93,6 +93,7 @@ model Order {
   from String 
   name_project String 
   category String
+  tech String[]
   deadline DateTime
   status Status @default(waiting)
   price BigInt
